@@ -32,6 +32,14 @@ public class Logo {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Logo() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param logoId
 	 * @param logoName
 	 * @param logoPath
