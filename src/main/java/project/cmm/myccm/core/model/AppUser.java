@@ -12,13 +12,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
-public class User {
+public class AppUser {
 
 	@Id
 	@SequenceGenerator(name = "seqUserID", initialValue = 1, allocationSize = 100)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUserID")
-	@Column(name = "user_id")
-	private long userId;
+	@Column(name = "app_user_id")
+	private long appUserId;
 	@Column(nullable = false, unique = true)
 	private String username;
 	@JsonIgnore
@@ -41,7 +41,7 @@ public class User {
 	/**
 	 * Constructor.
 	 *
-	 * @param userId
+	 * @param appUserId
 	 * @param username
 	 * @param password
 	 * @param title
@@ -52,10 +52,10 @@ public class User {
 	 * @param isActive
 	 * @param role
 	 */
-	public User(long userId, String username, String password, String title, String firstName, String lastName,
+	public AppUser(long appUserId, String username, String password, String title, String firstName, String lastName,
 			String email, String signature, boolean isActive, Role role) {
 		super();
-		this.userId = userId;
+		this.appUserId = appUserId;
 		this.username = username;
 		this.password = password;
 		this.title = title;
@@ -70,19 +70,19 @@ public class User {
 	/**
 	 * Getter.
 	 *
-	 * @return the userId
+	 * @return the appUserId
 	 */
-	public long getUserId() {
-		return userId;
+	public long getAppUserId() {
+		return appUserId;
 	}
 
 	/**
 	 * Setter.
 	 *
-	 * @param userId the userId to set
+	 * @param appUserId the appUserId to set
 	 */
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setAppUserId(long appUserId) {
+		this.appUserId = appUserId;
 	}
 
 	/**
