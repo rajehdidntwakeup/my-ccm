@@ -41,7 +41,7 @@ public class AppUser {
 	/**
 	 * Constructor.
 	 *
-	 * @param userId
+	 * @param appUserId
 	 * @param username
 	 * @param password
 	 * @param title
@@ -52,10 +52,10 @@ public class AppUser {
 	 * @param isActive
 	 * @param role
 	 */
-	public AppUser(long userId, String username, String password, String title, String firstName, String lastName,
+	public AppUser(long appUserId, String username, String password, String title, String firstName, String lastName,
 			String email, String signature, boolean isActive, Role role) {
 		super();
-		this.appUserId = userId;
+		this.appUserId = appUserId;
 		this.username = username;
 		this.password = password;
 		this.title = title;
@@ -70,19 +70,19 @@ public class AppUser {
 	/**
 	 * Getter.
 	 *
-	 * @return the userId
+	 * @return the appUserId
 	 */
-	public long getUserId() {
+	public long getAppUserId() {
 		return appUserId;
 	}
 
 	/**
 	 * Setter.
 	 *
-	 * @param userId the userId to set
+	 * @param appUserId the appUserId to set
 	 */
-	public void setUserId(long userId) {
-		this.appUserId = userId;
+	public void setAppUserId(long appUserId) {
+		this.appUserId = appUserId;
 	}
 
 	/**
