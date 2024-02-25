@@ -45,6 +45,14 @@ public class Vehicle {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Vehicle() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param vehicleId
 	 * @param vehicleType
 	 * @param brand

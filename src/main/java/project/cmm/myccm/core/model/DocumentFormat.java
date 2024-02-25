@@ -43,6 +43,14 @@ public class DocumentFormat {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public DocumentFormat() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param docFormatId
 	 * @param documentType
 	 * @param colorType

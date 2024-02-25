@@ -36,6 +36,14 @@ public class Address {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Address() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param addressId
 	 * @param streetName
 	 * @param streetNumber

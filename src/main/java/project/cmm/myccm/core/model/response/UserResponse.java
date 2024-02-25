@@ -1,48 +1,38 @@
-package project.cmm.myccm.core.model;
+package project.cmm.myccm.core.model.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import project.cmm.myccm.core.model.AppUser;
+import project.cmm.myccm.core.model.Role;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+public class UserResponse {
 
-@Entity
-public class AppUser {
-
-	@Id
-	@SequenceGenerator(name = "seqUserID", initialValue = 1, allocationSize = 100)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUserID")
-	@Column(name = "app_user_id")
 	private long appUserId;
-	@Column(nullable = false, unique = true)
 	private String username;
-	@JsonIgnore
-	@Column(nullable = false)
-	private String password;
 
 	private String title;
-	@Column(nullable = false)
 	private String firstName;
-	@Column(nullable = false)
 	private String lastName;
 	private String email;
-	@Column(nullable = false)
-	private boolean isActive = true;
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private Role role = Role.EMPLOYEE;
+	private boolean isActive;
+	private Role role;
+	
+	
+	
 
 	/**
 	 * Constructor.
 	 *
 	 */
-	public AppUser() {
+	public UserResponse(AppUser user) {
 		super();
+		this.appUserId = user.getAppUserId();
+		this.username = user.getUsername();
+		this.title = user.getTitle();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.email = user.getEmail();
+		this.isActive = user.isActive();
+		this.role = user.getRole();
+		
 	}
 
 	/**
@@ -50,7 +40,6 @@ public class AppUser {
 	 *
 	 * @param appUserId
 	 * @param username
-	 * @param password
 	 * @param title
 	 * @param firstName
 	 * @param lastName
@@ -58,38 +47,17 @@ public class AppUser {
 	 * @param isActive
 	 * @param role
 	 */
-	public AppUser(long appUserId, String username, String password, String title, String firstName, String lastName,
-			String email, boolean isActive, Role role) {
+	public UserResponse(long appUserId, String username, String title, String firstName, String lastName, String email,
+			boolean isActive, Role role) {
 		super();
 		this.appUserId = appUserId;
 		this.username = username;
-		this.password = password;
 		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.isActive = isActive;
 		this.role = role;
-	}
-
-	/**
-	 * New user Constructor.
-	 *
-	 * @param username
-	 * @param password
-	 * @param title
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 */
-	public AppUser(String username, String password, String title, String firstName, String lastName, String email) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.title = title;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
 	}
 
 	/**
@@ -126,24 +94,6 @@ public class AppUser {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	/**
-	 * Getter.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Setter.
-	 *
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	/**

@@ -42,6 +42,14 @@ public class Document {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Document() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param documentId
 	 * @param timestamp
 	 * @param city

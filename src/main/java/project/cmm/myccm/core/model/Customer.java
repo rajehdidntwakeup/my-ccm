@@ -44,6 +44,14 @@ public class Customer {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Customer() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param customerId
 	 * @param firstName
 	 * @param lastName

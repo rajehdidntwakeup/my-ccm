@@ -41,6 +41,14 @@ public class Company {
 	/**
 	 * Constructor.
 	 *
+	 */
+	public Company() {
+		super();
+	}
+
+	/**
+	 * Constructor.
+	 *
 	 * @param companyId
 	 * @param name
 	 * @param addresses
