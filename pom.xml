@@ -63,6 +63,20 @@
 			<scope>test</scope>
 		</dependency>
 
+
+		<!-- JAXB -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.4.0-b180830.0359</version>
+		</dependency>
+		<!-- JAXB API only -->
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+		</dependency>
+
+
 		<!-- FOP -->
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>

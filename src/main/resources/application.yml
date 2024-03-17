@@ -19,3 +19,6 @@ spring:
       ddl-auto: update
     show-sql: true
 
+xml:
+  file:
+    path: \src\main\resources\xmlFiles
