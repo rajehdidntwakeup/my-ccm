@@ -17,6 +17,7 @@ public class FopRequest {
 	private double mileage = 0;
 	private String motorNumber;
 	private String chassisNumber;
+	private boolean withDate = true;
 	private boolean isTest = false;
 
 	/**
@@ -43,11 +44,12 @@ public class FopRequest {
 	 * @param mileage
 	 * @param motorNumber
 	 * @param chassisNumber
+	 * @param withDate
 	 * @param isTest
 	 */
 	public FopRequest(String firstName, String lastName, String streetName, String streetNumber, String zip,
 			String city, VehicleType vehicleType, String brand, String modelName, String manufactureYear,
-			double mileage, String motorNumber, String chassisNumber, boolean isTest) {
+			double mileage, String motorNumber, String chassisNumber, boolean withDate, boolean isTest) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -62,6 +64,7 @@ public class FopRequest {
 		this.mileage = mileage;
 		this.motorNumber = motorNumber;
 		this.chassisNumber = chassisNumber;
+		this.withDate = withDate;
 		this.isTest = isTest;
 	}
 
@@ -297,6 +300,24 @@ public class FopRequest {
 	 */
 	public void setChassisNumber(String chassisNumber) {
 		this.chassisNumber = chassisNumber;
+	}
+
+	/**
+	 * Getter.
+	 *
+	 * @return the withDate
+	 */
+	public boolean isWithDate() {
+		return withDate;
+	}
+
+	/**
+	 * Setter.
+	 *
+	 * @param withDate the withDate to set
+	 */
+	public void setWithDate(boolean withDate) {
+		this.withDate = withDate;
 	}
 
 	/**
