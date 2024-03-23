@@ -3,6 +3,8 @@ package project.cmm.myccm.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import project.cmm.myccm.core.model.response.FopResponse;
 import project.cmm.myccm.core.model.xml.Customer;
 import project.cmm.myccm.core.model.xml.Document;
 import project.cmm.myccm.core.model.xml.Vehicle;
+import project.cmm.myccm.fop.logic.FopProcessLogic;
 import project.cmm.myccm.fop.logic.XmlWriter;
 
 @Service
@@ -21,23 +24,38 @@ public class FopService {
 
 	@Value("${xml.file.path}")
 	private String xmlFileDir;
+	private static Logger logger = LoggerFactory.getLogger(FopService.class);
 
-	public FopResponse startFopProcess(FopRequest request, CompanyDto company) {
+	public FopResponse startFopProcess(FopRequest request) {
+		CompanyDto company = getCompanyDto();
+		FopProcessLogic fopProcess = new FopProcessLogic();
 
 		if (!request.isTest()) {
+			logger.info("Starting a creating document process...");
 			checkRequestParameter(request);
 			Document document = createDocumentFromRequest(request, company);
 			try {
-				String documentPath = createXmlFileForFopProcess(document);
+				String documentXmlPath = createXmlFileForFopProcess(document);
+				//TODO
+				fopProcess.startFopProcess(null, documentXmlPath, null, null);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Error: ", e);
 			}
 		}
-
 		return null;
 	}
 
+	/**
+	 * Checks the validity of request parameters for a FopRequest object. Throws
+	 * ResponseStatusException with HttpStatus.BAD_REQUEST if any required parameter
+	 * is missing or invalid.
+	 * 
+	 * @param request the FopRequest object to be checked
+	 * @throws ResponseStatusException if any required parameter is missing or
+	 *                                 invalid
+	 */
 	private void checkRequestParameter(FopRequest request) {
+		logger.info("Checking request parameter...");
 		if (request.getFirstName() == null || request.getFirstName().isEmpty() || request.getFirstName().isBlank()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The Customer first name is not available!");
 		}
@@ -80,8 +98,28 @@ public class FopService {
 		}
 	}
 
+	private CompanyDto getCompanyDto() {
+		// TODO
+		return null;
+	}
+
+	/**
+	 * Creates a document from the given FopRequest and CompanyDto objects.
+	 * 
+	 * Constructs a Customer object representing the buyer using data from the
+	 * request. Constructs a Customer object representing the seller using data from
+	 * the CompanyDto object. Constructs a Vehicle object using details from the
+	 * request. If the request specifies including the date, retrieves the current
+	 * date and formats it. Constructs a Document object using the seller, buyer,
+	 * vehicle, city, and formatted time.
+	 * 
+	 * @param request the FopRequest object containing customer and vehicle details
+	 * @param company the CompanyDto object containing seller details
+	 * @return the Document object created from the request and company information
+	 */
 	private Document createDocumentFromRequest(FopRequest request, CompanyDto company) {
 
+		logger.info("Creating a document object for XML File..");
 		Customer customer = new Customer(request.getFirstName(), request.getLastName(), request.getStreetName(),
 				request.getStreetNumber(), request.getZip(), request.getCity());
 		Customer seller = new Customer(company.getName(), "", company.getStreetName(), company.getStreetNumber(),
@@ -100,9 +138,20 @@ public class FopService {
 		return document;
 	}
 
+	
+	/**
+	 * Creates an XML file for the FOP process using the provided Document object.
+	 * 
+	 * Instantiates an XmlWriter object with the specified XML file directory.
+	 * Writes XML content based on the provided Document object using the XmlWriter.
+	 * 
+	 * @param document the Document object containing data to be written into the XML file
+	 * @return the path to the created XML file
+	 * @throws Exception if an error occurs during XML file creation
+	 */
 	private String createXmlFileForFopProcess(Document document) throws Exception {
 		XmlWriter writer = new XmlWriter(xmlFileDir);
 		return writer.writeXml(document);
-
 	}
+	
 }
