@@ -42,7 +42,6 @@ public class FopService {
 				logger.error("Error: ", e);
 			}
 		}
-
 		return null;
 	}
 
@@ -153,6 +152,6 @@ public class FopService {
 	private String createXmlFileForFopProcess(Document document) throws Exception {
 		XmlWriter writer = new XmlWriter(xmlFileDir);
 		return writer.writeXml(document);
-
 	}
+	
 }

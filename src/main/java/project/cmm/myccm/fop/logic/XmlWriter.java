@@ -47,6 +47,7 @@ public class XmlWriter {
 		this.xmlFileDir = xmlFileDir;
 	}
 
+	
 	/**
 	 * Writes XML content for the given Document object and saves it to a file.
 	 * 
@@ -83,5 +84,4 @@ public class XmlWriter {
 			throw new Exception(e);
 		}
 	}
-
 }
