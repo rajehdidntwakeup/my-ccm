@@ -8,10 +8,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
-
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -23,6 +25,7 @@ public class XmlWriter {
 	private String xmlFileDir;
 	private static XMLOutputFactory outputFactory;
 	public static JAXBContext context;
+	private static Logger logger = LoggerFactory.getLogger(XmlWriter.class);
 
 	static {
 		try {
@@ -33,7 +36,6 @@ public class XmlWriter {
 			throw new RuntimeException(e);
 		}
 	}
-	
 
 	/**
 	 * Constructor.
@@ -45,9 +47,22 @@ public class XmlWriter {
 		this.xmlFileDir = xmlFileDir;
 	}
 
-
+	/**
+	 * Writes XML content for the given Document object and saves it to a file.
+	 * 
+	 * Marshals the Document object into XML using JAXB marshaller. Configures
+	 * marshaller properties for formatted output, encoding, and fragment. Writes
+	 * the XML content to a file named "document.xml" in the specified directory.
+	 * Uses ISO-8859-1 encoding for both XML declaration and writer. Returns the
+	 * absolute path to the created XML file.
+	 * 
+	 * @param document the Document object to be converted to XML
+	 * @return the absolute path of the created XML file
+	 * @throws Exception if an error occurs during XML writing process
+	 */
 	public String writeXml(Document document) throws Exception {
 		try {
+			logger.info("Creating JAXB Marshaller!");
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
@@ -55,7 +70,8 @@ public class XmlWriter {
 			File xmlFile = new File(this.xmlFileDir + "/" + "document.xml");
 			OutputStream outputStream = new FileOutputStream(xmlFile);
 			Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.ISO_8859_1);
-			XMLStreamWriter streamWriter = outputFactory.createXMLStreamWriter(writer); 
+			XMLStreamWriter streamWriter = outputFactory.createXMLStreamWriter(writer);
+			logger.info("Writting XML File!");
 			streamWriter.writeStartDocument("ISO-8859-1", "1.0");
 			marshaller.marshal(document, streamWriter);
 			streamWriter.close();
@@ -63,10 +79,9 @@ public class XmlWriter {
 			outputStream.close();
 			return xmlFile.getAbsolutePath();
 		} catch (JAXBException | IOException | XMLStreamException e) {
-			// TODO: Exception handling
-			e.printStackTrace();
+			logger.error("Error while writting XML File: ", e);
 			throw new Exception(e);
 		}
 	}
-	
+
 }
