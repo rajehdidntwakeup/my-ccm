@@ -16,6 +16,7 @@ import project.cmm.myccm.core.model.response.FopResponse;
 import project.cmm.myccm.core.model.xml.Customer;
 import project.cmm.myccm.core.model.xml.Document;
 import project.cmm.myccm.core.model.xml.Vehicle;
+import project.cmm.myccm.fop.logic.FopProcessLogic;
 import project.cmm.myccm.fop.logic.XmlWriter;
 
 @Service
@@ -26,16 +27,19 @@ public class FopService {
 	private static Logger logger = LoggerFactory.getLogger(FopService.class);
 
 	public FopResponse startFopProcess(FopRequest request) {
-		CompanyDto company = null;
+		CompanyDto company = getCompanyDto();
+		FopProcessLogic fopProcess = new FopProcessLogic();
 
 		if (!request.isTest()) {
 			logger.info("Starting a creating document process...");
 			checkRequestParameter(request);
 			Document document = createDocumentFromRequest(request, company);
 			try {
-				String documentPath = createXmlFileForFopProcess(document);
+				String documentXmlPath = createXmlFileForFopProcess(document);
+				//TODO
+				fopProcess.startFopProcess(null, documentXmlPath, null, null);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Error: ", e);
 			}
 		}
 
