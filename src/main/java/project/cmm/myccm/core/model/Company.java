@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class Company {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<>(1);
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
