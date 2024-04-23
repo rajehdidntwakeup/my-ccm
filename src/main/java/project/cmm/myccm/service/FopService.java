@@ -23,13 +23,22 @@ import project.cmm.myccm.repository.CompanyUserRepository;
 
 @Service
 public class FopService {
-	
+
 	@Autowired
 	private CompanyUserRepository companyUserRepository;
-	
 
 	@Value("${xml.file.path}")
 	private String xmlFileDir;
+
+	@Value("${xsl.file.path}")
+	private String xslFilePath;
+
+	@Value("${output.file.path}")
+	private String outputFileDir;
+
+	@Value("${fop.conf.file.path}")
+	private String configFilePath;
+
 	private static Logger logger = LoggerFactory.getLogger(FopService.class);
 
 	public FopResponse startFopProcess(FopRequest request, long companyId) {
@@ -42,8 +51,9 @@ public class FopService {
 			Document document = createDocumentFromRequest(request, company);
 			try {
 				String documentXmlPath = createXmlFileForFopProcess(document);
-				//TODO
-				fopProcess.startFopProcess(null, documentXmlPath, null, null);
+				String outputFileName = "test";
+				String outputFilePath = outputFileDir + "/" + outputFileName;
+				fopProcess.startFopProcess(xslFilePath, documentXmlPath, configFilePath, outputFilePath);
 			} catch (Exception e) {
 				logger.error("Error: ", e);
 			}
@@ -104,7 +114,6 @@ public class FopService {
 		}
 	}
 
-	
 	private CompanyDto getCompanyDto(long companyId) {
 		CompanyDto companyDto = companyUserRepository.getCompanyDtoById(companyId);
 		return companyDto;
@@ -132,7 +141,8 @@ public class FopService {
 		Customer seller = new Customer(company.getName(), "", company.getStreetName(), company.getStreetNumber(),
 				company.getZip(), company.getCity());
 		Vehicle vehicle = new Vehicle(request.getVehicleType().name(), request.getBrand(), request.getModelName(),
-				request.getManufactureYear(), request.getMileage(), request.getModelName(), request.getChassisNumber());
+				request.getManufactureYear(), request.getMileage(), request.getModelName(), request.getChassisNumber(),
+				request.getPrice());
 		String formattedTime = "";
 		if (request.isWithDate()) {
 			LocalDateTime currentTime = LocalDateTime.now();
@@ -145,14 +155,14 @@ public class FopService {
 		return document;
 	}
 
-	
 	/**
 	 * Creates an XML file for the FOP process using the provided Document object.
 	 * 
 	 * Instantiates an XmlWriter object with the specified XML file directory.
 	 * Writes XML content based on the provided Document object using the XmlWriter.
 	 * 
-	 * @param document the Document object containing data to be written into the XML file
+	 * @param document the Document object containing data to be written into the
+	 *                 XML file
 	 * @return the path to the created XML file
 	 * @throws Exception if an error occurs during XML file creation
 	 */
@@ -160,5 +170,5 @@ public class FopService {
 		XmlWriter writer = new XmlWriter(xmlFileDir);
 		return writer.writeXml(document);
 	}
-	
+
 }

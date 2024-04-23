@@ -5,7 +5,6 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;;
 
-
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vehicle {
@@ -24,6 +23,8 @@ public class Vehicle {
 	private String motorNumber;
 	@XmlElement(required = false)
 	private String chassisNumber;
+	@XmlElement(required = false)
+	private double price;
 
 	/**
 	 * Constructor.
@@ -43,9 +44,10 @@ public class Vehicle {
 	 * @param mileage
 	 * @param motorNumber
 	 * @param chassisNumber
+	 * @param price
 	 */
 	public Vehicle(String vehicleType, String brand, String modelName, String manufactureYear, double mileage,
-			String motorNumber, String chassisNumber) {
+			String motorNumber, String chassisNumber, double price) {
 		super();
 		this.vehicleType = vehicleType;
 		this.brand = brand;
@@ -54,6 +56,7 @@ public class Vehicle {
 		this.mileage = mileage;
 		this.motorNumber = motorNumber;
 		this.chassisNumber = chassisNumber;
+		this.price = price;
 	}
 
 	/**
@@ -180,6 +183,24 @@ public class Vehicle {
 	 */
 	public void setChassisNumber(String chassisNumber) {
 		this.chassisNumber = chassisNumber;
+	}
+
+	/**
+	 * Getter.
+	 *
+	 * @return the price
+	 */
+	public double getPrice() {
+		return price;
+	}
+
+	/**
+	 * Setter.
+	 *
+	 * @param price the price to set
+	 */
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 }
