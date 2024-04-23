@@ -46,5 +46,22 @@ public class CompanyService {
 		}
 		
 	}
+	
+	
+	public CompanyDto getCompanyInfo() {
+		CompanyDto companyDto = null;
+		Company company = companyRepository.findAll().get(0);
+		if (company != null) {
+			Address address = company.getAddresses().get(0);
+			if (address != null) {
+				companyDto = new CompanyDto(company.getName(), address.getStreetName(), address.getStreetNumber(),
+						address.getZip(), address.getCity());
+			} else {
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Address not found!");
+			}
+		}
+		return companyDto;
+
+	}
 
 }
