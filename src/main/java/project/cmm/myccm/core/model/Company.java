@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class Company {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<>(1);
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
@@ -67,6 +68,21 @@ public class Company {
 		this.documentFormats = documentFormats;
 		this.customers = customers;
 		this.vehicles = vehicles;
+	}
+
+	/**
+	 * Adds an Address to the company's address list and sets the company for the
+	 * provided address.
+	 * 
+	 * Adds the provided Address object to the company's list of addresses. Sets the
+	 * company reference for the provided Address object, establishing the
+	 * relationship.
+	 * 
+	 * @param address the Address object to be added to the company's address list
+	 */
+	public void addAddress(Address address) {
+		this.addresses.add(address);
+		address.setCompany(this);
 	}
 
 	/**

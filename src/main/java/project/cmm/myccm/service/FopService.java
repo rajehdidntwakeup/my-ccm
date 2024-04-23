@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,16 +19,21 @@ import project.cmm.myccm.core.model.xml.Document;
 import project.cmm.myccm.core.model.xml.Vehicle;
 import project.cmm.myccm.fop.logic.FopProcessLogic;
 import project.cmm.myccm.fop.logic.XmlWriter;
+import project.cmm.myccm.repository.CompanyUserRepository;
 
 @Service
 public class FopService {
+	
+	@Autowired
+	private CompanyUserRepository companyUserRepository;
+	
 
 	@Value("${xml.file.path}")
 	private String xmlFileDir;
 	private static Logger logger = LoggerFactory.getLogger(FopService.class);
 
-	public FopResponse startFopProcess(FopRequest request) {
-		CompanyDto company = getCompanyDto();
+	public FopResponse startFopProcess(FopRequest request, long companyId) {
+		CompanyDto company = getCompanyDto(companyId);
 		FopProcessLogic fopProcess = new FopProcessLogic();
 
 		if (!request.isTest()) {
@@ -98,9 +104,10 @@ public class FopService {
 		}
 	}
 
-	private CompanyDto getCompanyDto() {
-		// TODO
-		return null;
+	
+	private CompanyDto getCompanyDto(long companyId) {
+		CompanyDto companyDto = companyUserRepository.getCompanyDtoById(companyId);
+		return companyDto;
 	}
 
 	/**
