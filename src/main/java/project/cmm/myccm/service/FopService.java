@@ -159,7 +159,7 @@ public class FopService {
 		String formattedTime = "";
 		if (request.isWithDate()) {
 			LocalDateTime currentTime = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 			formattedTime = currentTime.format(formatter);
 		}
 
