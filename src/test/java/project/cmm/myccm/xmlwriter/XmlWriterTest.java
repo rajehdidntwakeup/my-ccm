@@ -20,7 +20,7 @@ import project.cmm.myccm.fop.logic.XmlWriter;
 
 public class XmlWriterTest {
 	
-	private final String filePath = "./src/test/resources/xmlfiles/";
+	private final String filePath = "./src/test/resources/xmlfiles";
 	
 	
 	private Document init() {
@@ -36,11 +36,12 @@ public class XmlWriterTest {
 	@Test
 	public void writeXmlTest() {
 		
-		XmlWriter xmlWriter = new XmlWriter(filePath);
 		Document document = init();
+		XmlWriter xmlWriter = new XmlWriter(filePath);
 		assertDoesNotThrow(()-> xmlWriter.writeXml(document));
 		Path path = Paths.get(filePath + "/document.xml");
 		assertTrue(Files.exists(path));
+		
 		if (Files.exists(path)) {
 			try {
 				Files.delete(path);
