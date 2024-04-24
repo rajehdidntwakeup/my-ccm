@@ -28,7 +28,7 @@ public class XmlWriterTest {
 		String date = dateFormat.format(new Date());
 		Customer seller = new Customer("Jack", "Boo", "Testgasse", "11", "1170", "Vienna");
 		Customer customer = new Customer("Bop", "Foo", "Teststreet", "12", "1220", "Vienna");
-		Vehicle vehicle = new Vehicle("PKW", "Audi", "A7", "2022", 10000, "218358", "AS-937629", 5000);
+		Vehicle vehicle = new Vehicle("PKW", "Audi", "A7", "2022", 10000, "218358", "AS-937629", 50000);
 		
 		return new Document(seller, customer, vehicle, "Wien", date);
 	}

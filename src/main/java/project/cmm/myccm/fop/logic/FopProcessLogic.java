@@ -2,6 +2,7 @@ package project.cmm.myccm.fop.logic;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,27 +27,44 @@ public class FopProcessLogic {
 	private static Logger logger = LoggerFactory.getLogger(FopProcessLogic.class);
 	
 
-	public void startFopProcess(String xslFilePath, String inputXmlFilePath, String fopConfigFilePath,
-			String outputFilePath) {
+	public String startFopProcess(String xslFilePath, String inputXmlFilePath, String fopConfigFilePath,
+			String outputFileDir, String outputFileName) throws FileNotFoundException {
 
+		File configFile = new File(fopConfigFilePath);
+		File xmlFile = new File(inputXmlFilePath);
+		File xslFile = new File(xslFilePath);
+		File pdfDir = new File(outputFileDir);
+		pdfDir.mkdirs();
+		File ouputFile = new File(outputFileDir + "/" + outputFileName);
 		FopFactory fopFactory = null;
+		OutputStream outputStream = new FileOutputStream(ouputFile);
+		outputStream = new BufferedOutputStream(outputStream);
 		try {
 			logger.info("Preparing for FOP process..");
-			fopFactory = FopFactory.newInstance(new File(fopConfigFilePath));
-			OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(outputFilePath)));
+			fopFactory = FopFactory.newInstance(configFile);
 
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputStream);
 			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = transformerFactory.newTransformer(new StreamSource(xslFile));
 			
-			Source source = new StreamSource(new File(xslFilePath));
+			Source source = new StreamSource(xmlFile);
 			Result result = new SAXResult(fop.getDefaultHandler());
 			logger.info("Starting a FOP transformation process..");
 			transformer.transform(source, result);
 			
 		} catch (SAXException | IOException | TransformerException e) {
 			logger.error("Error in FOP transformation process: ", e);
+			//TODO error handling
+		} finally {
+			try {
+				outputStream.close();
+			} catch (IOException e) {
+				logger.error("Error in FOP transformation process: ", e);
+				//TODO error handling
+			}
 		}
+		
+		return ouputFile.getAbsolutePath();
 	}
 }

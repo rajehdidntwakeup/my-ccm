@@ -1,5 +1,9 @@
 package project.cmm.myccm.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -44,21 +48,30 @@ public class FopService {
 	public FopResponse startFopProcess(FopRequest request, long companyId) {
 		CompanyDto company = getCompanyDto(companyId);
 		FopProcessLogic fopProcess = new FopProcessLogic();
+		String outoutFilePath = null;
+		Document document = new Document();
 
 		if (!request.isTest()) {
 			logger.info("Starting a creating document process...");
-			checkRequestParameter(request);
-			Document document = createDocumentFromRequest(request, company);
+			if (!request.isEmpty()) {
+				checkRequestParameter(request);
+				document = createDocumentFromRequest(request, company);
+			}
 			try {
 				String documentXmlPath = createXmlFileForFopProcess(document);
-				String outputFileName = "test";
-				String outputFilePath = outputFileDir + "/" + outputFileName;
-				fopProcess.startFopProcess(xslFilePath, documentXmlPath, configFilePath, outputFilePath);
+				//TODO pdf file name to set
+				String outputFileName = "test.pdf";
+				outoutFilePath = fopProcess.startFopProcess(xslFilePath, documentXmlPath, configFilePath, outputFileDir, outputFileName);
+				deleteXmlFileAfterPdfCreated(documentXmlPath);
 			} catch (Exception e) {
 				logger.error("Error: ", e);
 			}
 		}
-		return null;
+		if (outoutFilePath != null) {
+			return new FopResponse(outoutFilePath);
+		} else {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
+		}
 	}
 
 	/**
@@ -101,7 +114,7 @@ public class FopService {
 				|| request.getManufactureYear().isBlank()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The vehicle manufacture year is not available!");
 		}
-		if (request.getMileage() >= 1) {
+		if (request.getMileage() <= 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The vehicle mileage is not available!");
 		}
 		if (request.getMotorNumber() == null || request.getMotorNumber().isEmpty()
@@ -146,7 +159,7 @@ public class FopService {
 		String formattedTime = "";
 		if (request.isWithDate()) {
 			LocalDateTime currentTime = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 			formattedTime = currentTime.format(formatter);
 		}
 
@@ -169,6 +182,14 @@ public class FopService {
 	private String createXmlFileForFopProcess(Document document) throws Exception {
 		XmlWriter writer = new XmlWriter(xmlFileDir);
 		return writer.writeXml(document);
+	}
+	
+	
+	private void deleteXmlFileAfterPdfCreated(String xmlFilePath) throws IOException {
+		Path path = Paths.get(xmlFilePath);
+		if (Files.exists(path)) {
+			Files.delete(path);
+		}
 	}
 
 }

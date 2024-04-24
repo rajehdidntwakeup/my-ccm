@@ -21,16 +21,16 @@ spring:
 
 xml:
   file:
-    path: \src\main\resources\xmlFiles
+    path: .\src\main\resources\xmlFiles
     
 xsl:
   file:
-    path: \src\main\resources\xsl\myccm.xsl
+    path: .\src\main\resources\xsl\myccm.xsl
     
 fop:
   conf:
     file:
-      path: \src\main\resources\fopConfig\fop.xconf
+      path: .\src\main\resources\fopConfig\fop.xconf
       
 output:
   file:
