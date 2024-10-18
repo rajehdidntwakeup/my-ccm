@@ -20,10 +20,10 @@ import project.cmm.myccm.core.model.xml.Vehicle;
 import project.cmm.myccm.fop.logic.XmlWriter;
 
 public class XmlWriterTest {
-	
-	private final String filePath = "./src/test/resources/xmlfiles";
+	private String workingDir = System.getProperty("user.dir");
+	private final String filePath = workingDir + "/src/test/resources/xmlfiles";
 	private File file = new File(filePath);
-	
+
 	private Document init() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		String date = dateFormat.format(new Date());
