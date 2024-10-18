@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ import project.cmm.myccm.fop.logic.XmlWriter;
 public class XmlWriterTest {
 	
 	private final String filePath = "./src/test/resources/xmlfiles";
-	
+	private File file = new File(filePath);
 	
 	private Document init() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -39,7 +40,7 @@ public class XmlWriterTest {
 		Document document = init();
 		XmlWriter xmlWriter = new XmlWriter(filePath);
 		assertDoesNotThrow(()-> xmlWriter.writeXml(document));
-		Path path = Paths.get(filePath + "/document.xml");
+		Path path = Paths.get(file.getAbsolutePath() + "/document.xml");
 		assertTrue(Files.exists(path));
 		
 		if (Files.exists(path)) {
