@@ -19,6 +19,7 @@ jobs:
     steps:
       - name: Debug Conform
         run: |
+          cd ..
           pwd
           ls -la
           cat .conform.yaml
