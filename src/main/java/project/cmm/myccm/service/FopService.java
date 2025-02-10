@@ -1,5 +1,9 @@
 package project.cmm.myccm.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,32 +27,51 @@ import project.cmm.myccm.repository.CompanyUserRepository;
 
 @Service
 public class FopService {
-	
+
 	@Autowired
 	private CompanyUserRepository companyUserRepository;
-	
 
 	@Value("${xml.file.path}")
 	private String xmlFileDir;
+
+	@Value("${xsl.file.path}")
+	private String xslFilePath;
+
+	@Value("${output.file.path}")
+	private String outputFileDir;
+
+	@Value("${fop.conf.file.path}")
+	private String configFilePath;
+
 	private static Logger logger = LoggerFactory.getLogger(FopService.class);
 
 	public FopResponse startFopProcess(FopRequest request, long companyId) {
 		CompanyDto company = getCompanyDto(companyId);
 		FopProcessLogic fopProcess = new FopProcessLogic();
+		String outoutFilePath = null;
+		Document document = new Document();
 
 		if (!request.isTest()) {
 			logger.info("Starting a creating document process...");
-			checkRequestParameter(request);
-			Document document = createDocumentFromRequest(request, company);
+			if (!request.isEmpty()) {
+				checkRequestParameter(request);
+				document = createDocumentFromRequest(request, company);
+			}
 			try {
 				String documentXmlPath = createXmlFileForFopProcess(document);
-				//TODO
-				fopProcess.startFopProcess(null, documentXmlPath, null, null);
+				//TODO pdf file name to set
+				String outputFileName = "test.pdf";
+				outoutFilePath = fopProcess.startFopProcess(xslFilePath, documentXmlPath, configFilePath, outputFileDir, outputFileName);
+				deleteXmlFileAfterPdfCreated(documentXmlPath);
 			} catch (Exception e) {
 				logger.error("Error: ", e);
 			}
 		}
-		return null;
+		if (outoutFilePath != null) {
+			return new FopResponse(outoutFilePath);
+		} else {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
+		}
 	}
 
 	/**
@@ -91,7 +114,7 @@ public class FopService {
 				|| request.getManufactureYear().isBlank()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The vehicle manufacture year is not available!");
 		}
-		if (request.getMileage() >= 1) {
+		if (request.getMileage() <= 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The vehicle mileage is not available!");
 		}
 		if (request.getMotorNumber() == null || request.getMotorNumber().isEmpty()
@@ -104,7 +127,6 @@ public class FopService {
 		}
 	}
 
-	
 	private CompanyDto getCompanyDto(long companyId) {
 		CompanyDto companyDto = companyUserRepository.getCompanyDtoById(companyId);
 		return companyDto;
@@ -132,11 +154,12 @@ public class FopService {
 		Customer seller = new Customer(company.getName(), "", company.getStreetName(), company.getStreetNumber(),
 				company.getZip(), company.getCity());
 		Vehicle vehicle = new Vehicle(request.getVehicleType().name(), request.getBrand(), request.getModelName(),
-				request.getManufactureYear(), request.getMileage(), request.getModelName(), request.getChassisNumber());
+				request.getManufactureYear(), request.getMileage(), request.getModelName(), request.getChassisNumber(),
+				request.getPrice());
 		String formattedTime = "";
 		if (request.isWithDate()) {
 			LocalDateTime currentTime = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 			formattedTime = currentTime.format(formatter);
 		}
 
@@ -145,14 +168,14 @@ public class FopService {
 		return document;
 	}
 
-	
 	/**
 	 * Creates an XML file for the FOP process using the provided Document object.
 	 * 
 	 * Instantiates an XmlWriter object with the specified XML file directory.
 	 * Writes XML content based on the provided Document object using the XmlWriter.
 	 * 
-	 * @param document the Document object containing data to be written into the XML file
+	 * @param document the Document object containing data to be written into the
+	 *                 XML file
 	 * @return the path to the created XML file
 	 * @throws Exception if an error occurs during XML file creation
 	 */
@@ -161,4 +184,12 @@ public class FopService {
 		return writer.writeXml(document);
 	}
 	
+	
+	private void deleteXmlFileAfterPdfCreated(String xmlFilePath) throws IOException {
+		Path path = Paths.get(xmlFilePath);
+		if (Files.exists(path)) {
+			Files.delete(path);
+		}
+	}
+
 }

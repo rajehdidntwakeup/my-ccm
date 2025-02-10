@@ -17,8 +17,10 @@ public class FopRequest {
 	private double mileage = 0;
 	private String motorNumber;
 	private String chassisNumber;
+	private double price = 0;
 	private boolean withDate = true;
 	private boolean isTest = false;
+	private boolean isEmpty = false;
 
 	/**
 	 * Constructor.
@@ -44,12 +46,15 @@ public class FopRequest {
 	 * @param mileage
 	 * @param motorNumber
 	 * @param chassisNumber
+	 * @param price
 	 * @param withDate
 	 * @param isTest
+	 * @param isEmpty
 	 */
 	public FopRequest(String firstName, String lastName, String streetName, String streetNumber, String zip,
 			String city, VehicleType vehicleType, String brand, String modelName, String manufactureYear,
-			double mileage, String motorNumber, String chassisNumber, boolean withDate, boolean isTest) {
+			double mileage, String motorNumber, String chassisNumber, double price, boolean withDate, boolean isTest,
+			boolean isEmpty) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -64,8 +69,10 @@ public class FopRequest {
 		this.mileage = mileage;
 		this.motorNumber = motorNumber;
 		this.chassisNumber = chassisNumber;
+		this.price = price;
 		this.withDate = withDate;
 		this.isTest = isTest;
+		this.isEmpty = isEmpty;
 	}
 
 	/**
@@ -336,6 +343,42 @@ public class FopRequest {
 	 */
 	public void setTest(boolean isTest) {
 		this.isTest = isTest;
+	}
+
+	/**
+	 * Getter.
+	 *
+	 * @return the price
+	 */
+	public double getPrice() {
+		return price;
+	}
+
+	/**
+	 * Setter.
+	 *
+	 * @param price the price to set
+	 */
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	/**
+	 * Getter.
+	 *
+	 * @return the isEmpty
+	 */
+	public boolean isEmpty() {
+		return isEmpty;
+	}
+
+	/**
+	 * Setter.
+	 *
+	 * @param isEmpty the isEmpty to set
+	 */
+	public void setEmpty(boolean isEmpty) {
+		this.isEmpty = isEmpty;
 	}
 
 }

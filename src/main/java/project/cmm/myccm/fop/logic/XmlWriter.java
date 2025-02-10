@@ -64,11 +64,11 @@ public class XmlWriter {
 	public String writeXml(Document document) throws Exception {
 		try {
 			logger.info("Creating JAXB Marshaller!");
+			File xmlFile = new File(this.xmlFileDir + "/" + "document.xml");
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-			File xmlFile = new File(this.xmlFileDir + "/" + "document.xml");
 			OutputStream outputStream = new FileOutputStream(xmlFile);
 			Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.ISO_8859_1);
 			XMLStreamWriter streamWriter = outputFactory.createXMLStreamWriter(writer);
