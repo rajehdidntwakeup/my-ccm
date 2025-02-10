@@ -13,7 +13,18 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
+  conform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: siderolabs/conform@6380738b7fdfc68b208ce0674c4ac1ba314ba600 # v0.1.0-alpha.27
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
   build:
     name: Build with JDK 21
     runs-on: ubuntu-latest
