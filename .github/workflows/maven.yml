@@ -41,7 +41,7 @@ jobs:
           cache: maven
 
       - name: Run Checkstyle
-        run: mvn checkstyle:check
+        run: mvn checkstyle:checkstyle
 
   build:
     name: Build with JDK 17
