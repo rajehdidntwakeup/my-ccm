@@ -1,4 +1,3 @@
-
 #Server Config
 server:
   port: 8080
@@ -10,7 +9,7 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     username: sa
-    password: 
+    password:
     url: jdbc:h2:file:${user.home}/h2/my-ccm
   h2:
     console.enabled: true

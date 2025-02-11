@@ -4,338 +4,337 @@ import project.cmm.myccm.core.model.VehicleType;
 
 public class FopRequest {
 
-	private String firstName;
-	private String lastName;
-	private String streetName;
-	private String streetNumber;
-	private String zip;
-	private String city;
-	private VehicleType vehicleType = VehicleType.PKW;
-	private String brand;
-	private String modelName;
-	private String manufactureYear;
-	private double mileage = 0;
-	private String motorNumber;
-	private String chassisNumber;
-	private boolean withDate = true;
-	private boolean isTest = false;
+    private String firstName;
+    private String lastName;
+    private String streetName;
+    private String streetNumber;
+    private String zip;
+    private String city;
+    private VehicleType vehicleType = VehicleType.PKW;
+    private String brand;
+    private String modelName;
+    private String manufactureYear;
+    private double mileage = 0;
+    private String motorNumber;
+    private String chassisNumber;
+    private boolean withDate = true;
+    private boolean isTest = false;
 
-	/**
-	 * Constructor.
-	 *
-	 */
-	public FopRequest() {
-		super();
-	}
+    /**
+     * Constructor.
+     */
+    public FopRequest() {
+        super();
+    }
 
-	/**
-	 * Constructor.
-	 *
-	 * @param firstName
-	 * @param lastName
-	 * @param streetName
-	 * @param streetNumber
-	 * @param zip
-	 * @param city
-	 * @param vehicleType
-	 * @param brand
-	 * @param modelName
-	 * @param manufactureYear
-	 * @param mileage
-	 * @param motorNumber
-	 * @param chassisNumber
-	 * @param withDate
-	 * @param isTest
-	 */
-	public FopRequest(String firstName, String lastName, String streetName, String streetNumber, String zip,
-			String city, VehicleType vehicleType, String brand, String modelName, String manufactureYear,
-			double mileage, String motorNumber, String chassisNumber, boolean withDate, boolean isTest) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.streetName = streetName;
-		this.streetNumber = streetNumber;
-		this.zip = zip;
-		this.city = city;
-		this.vehicleType = vehicleType;
-		this.brand = brand;
-		this.modelName = modelName;
-		this.manufactureYear = manufactureYear;
-		this.mileage = mileage;
-		this.motorNumber = motorNumber;
-		this.chassisNumber = chassisNumber;
-		this.withDate = withDate;
-		this.isTest = isTest;
-	}
+    /**
+     * Constructor.
+     *
+     * @param firstName
+     * @param lastName
+     * @param streetName
+     * @param streetNumber
+     * @param zip
+     * @param city
+     * @param vehicleType
+     * @param brand
+     * @param modelName
+     * @param manufactureYear
+     * @param mileage
+     * @param motorNumber
+     * @param chassisNumber
+     * @param withDate
+     * @param isTest
+     */
+    public FopRequest(String firstName, String lastName, String streetName, String streetNumber, String zip,
+                      String city, VehicleType vehicleType, String brand, String modelName, String manufactureYear,
+                      double mileage, String motorNumber, String chassisNumber, boolean withDate, boolean isTest) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetName = streetName;
+        this.streetNumber = streetNumber;
+        this.zip = zip;
+        this.city = city;
+        this.vehicleType = vehicleType;
+        this.brand = brand;
+        this.modelName = modelName;
+        this.manufactureYear = manufactureYear;
+        this.mileage = mileage;
+        this.motorNumber = motorNumber;
+        this.chassisNumber = chassisNumber;
+        this.withDate = withDate;
+        this.isTest = isTest;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * Getter.
+     *
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * Setter.
+     *
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * Getter.
+     *
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * Setter.
+     *
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the streetName
-	 */
-	public String getStreetName() {
-		return streetName;
-	}
+    /**
+     * Getter.
+     *
+     * @return the streetName
+     */
+    public String getStreetName() {
+        return streetName;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param streetName the streetName to set
-	 */
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
-	}
+    /**
+     * Setter.
+     *
+     * @param streetName the streetName to set
+     */
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the streetNumber
-	 */
-	public String getStreetNumber() {
-		return streetNumber;
-	}
+    /**
+     * Getter.
+     *
+     * @return the streetNumber
+     */
+    public String getStreetNumber() {
+        return streetNumber;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param streetNumber the streetNumber to set
-	 */
-	public void setStreetNumber(String streetNumber) {
-		this.streetNumber = streetNumber;
-	}
+    /**
+     * Setter.
+     *
+     * @param streetNumber the streetNumber to set
+     */
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the zip
-	 */
-	public String getZip() {
-		return zip;
-	}
+    /**
+     * Getter.
+     *
+     * @return the zip
+     */
+    public String getZip() {
+        return zip;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param zip the zip to set
-	 */
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    /**
+     * Setter.
+     *
+     * @param zip the zip to set
+     */
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
+    /**
+     * Getter.
+     *
+     * @return the city
+     */
+    public String getCity() {
+        return city;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * Setter.
+     *
+     * @param city the city to set
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the vehicleType
-	 */
-	public VehicleType getVehicleType() {
-		return vehicleType;
-	}
+    /**
+     * Getter.
+     *
+     * @return the vehicleType
+     */
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param vehicleType the vehicleType to set
-	 */
-	public void setVehicleType(VehicleType vehicleType) {
-		this.vehicleType = vehicleType;
-	}
+    /**
+     * Setter.
+     *
+     * @param vehicleType the vehicleType to set
+     */
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the brand
-	 */
-	public String getBrand() {
-		return brand;
-	}
+    /**
+     * Getter.
+     *
+     * @return the brand
+     */
+    public String getBrand() {
+        return brand;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param brand the brand to set
-	 */
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+    /**
+     * Setter.
+     *
+     * @param brand the brand to set
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the modelName
-	 */
-	public String getModelName() {
-		return modelName;
-	}
+    /**
+     * Getter.
+     *
+     * @return the modelName
+     */
+    public String getModelName() {
+        return modelName;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param modelName the modelName to set
-	 */
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
-	}
+    /**
+     * Setter.
+     *
+     * @param modelName the modelName to set
+     */
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the manufactureYear
-	 */
-	public String getManufactureYear() {
-		return manufactureYear;
-	}
+    /**
+     * Getter.
+     *
+     * @return the manufactureYear
+     */
+    public String getManufactureYear() {
+        return manufactureYear;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param manufactureYear the manufactureYear to set
-	 */
-	public void setManufactureYear(String manufactureYear) {
-		this.manufactureYear = manufactureYear;
-	}
+    /**
+     * Setter.
+     *
+     * @param manufactureYear the manufactureYear to set
+     */
+    public void setManufactureYear(String manufactureYear) {
+        this.manufactureYear = manufactureYear;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the mileage
-	 */
-	public double getMileage() {
-		return mileage;
-	}
+    /**
+     * Getter.
+     *
+     * @return the mileage
+     */
+    public double getMileage() {
+        return mileage;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param mileage the mileage to set
-	 */
-	public void setMileage(double mileage) {
-		this.mileage = mileage;
-	}
+    /**
+     * Setter.
+     *
+     * @param mileage the mileage to set
+     */
+    public void setMileage(double mileage) {
+        this.mileage = mileage;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the motorNumber
-	 */
-	public String getMotorNumber() {
-		return motorNumber;
-	}
+    /**
+     * Getter.
+     *
+     * @return the motorNumber
+     */
+    public String getMotorNumber() {
+        return motorNumber;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param motorNumber the motorNumber to set
-	 */
-	public void setMotorNumber(String motorNumber) {
-		this.motorNumber = motorNumber;
-	}
+    /**
+     * Setter.
+     *
+     * @param motorNumber the motorNumber to set
+     */
+    public void setMotorNumber(String motorNumber) {
+        this.motorNumber = motorNumber;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the chassisNumber
-	 */
-	public String getChassisNumber() {
-		return chassisNumber;
-	}
+    /**
+     * Getter.
+     *
+     * @return the chassisNumber
+     */
+    public String getChassisNumber() {
+        return chassisNumber;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param chassisNumber the chassisNumber to set
-	 */
-	public void setChassisNumber(String chassisNumber) {
-		this.chassisNumber = chassisNumber;
-	}
+    /**
+     * Setter.
+     *
+     * @param chassisNumber the chassisNumber to set
+     */
+    public void setChassisNumber(String chassisNumber) {
+        this.chassisNumber = chassisNumber;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the withDate
-	 */
-	public boolean isWithDate() {
-		return withDate;
-	}
+    /**
+     * Getter.
+     *
+     * @return the withDate
+     */
+    public boolean isWithDate() {
+        return withDate;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param withDate the withDate to set
-	 */
-	public void setWithDate(boolean withDate) {
-		this.withDate = withDate;
-	}
+    /**
+     * Setter.
+     *
+     * @param withDate the withDate to set
+     */
+    public void setWithDate(boolean withDate) {
+        this.withDate = withDate;
+    }
 
-	/**
-	 * Getter.
-	 *
-	 * @return the isTest
-	 */
-	public boolean isTest() {
-		return isTest;
-	}
+    /**
+     * Getter.
+     *
+     * @return the isTest
+     */
+    public boolean isTest() {
+        return isTest;
+    }
 
-	/**
-	 * Setter.
-	 *
-	 * @param isTest the isTest to set
-	 */
-	public void setTest(boolean isTest) {
-		this.isTest = isTest;
-	}
+    /**
+     * Setter.
+     *
+     * @param isTest the isTest to set
+     */
+    public void setTest(boolean isTest) {
+        this.isTest = isTest;
+    }
 
 }
