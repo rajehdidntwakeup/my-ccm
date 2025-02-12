@@ -30,7 +30,7 @@ public class CompanyServiceTest {
         CompanyDto company = new CompanyDto("Test", "street", "11/2", "1123", "Wien");
         assertDoesNotThrow(() -> service.saveCompany(company));
         List<Company> companies = repository.findAll();
-        assertTrue(!companies.isEmpty());
+        assertFalse(companies.isEmpty());
         Address address = companies.get(0).getAddresses().get(0);
         assertEquals("street", address.getStreetName());
         assertEquals("1123", address.getZip());

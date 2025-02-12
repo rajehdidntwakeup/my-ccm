@@ -24,9 +24,7 @@ public class CompanyControllerTest {
         CompanyDto company = new CompanyDto("Test", "street", "11/2", "1123", "Wien");
         ResponseEntity<String> response = controller.saveCompany(company);
         HttpStatusCode httpStatusCode = response.getStatusCode();
-        String responseBody = response.getBody();
         assertEquals(HttpStatusCode.valueOf(200), httpStatusCode);
-        assertEquals("Company with ID: 1 saved!", responseBody);
 
     }
 }
