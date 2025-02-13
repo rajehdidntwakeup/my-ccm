@@ -1,23 +1,14 @@
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-alpine
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Maven pom.xml file
-COPY pom.xml .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Copy the source code
-COPY src ./src
-
-# Build the application using Maven
-RUN mvn clean package -DskipTests
-
-# Copy the built JAR file from the builder stage
-COPY --from=builder /app/target/my-ccm-0.0.1-SNAPSHOT.jar
-
-# Expose the port that the application will run on
-EXPOSE 8080
+# Compile the application (assuming it's a Maven project)
+RUN ./mvnw package
 
 # Run the application
-CMD ["java", "-jar", "target/my-ccm-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/my-ccm.jar"]
