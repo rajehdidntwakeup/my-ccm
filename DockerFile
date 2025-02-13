@@ -1,6 +1,9 @@
 # Stage 1: Build the application
 FROM openjdk:17-jdk-alpine as builder
 
+# Install Maven
+RUN apk add --no-cache maven
+
 # Set the working directory
 WORKDIR /app
 
@@ -17,7 +20,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the final runtime image
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-alpine
 
 # Set the working directory
 WORKDIR /app
