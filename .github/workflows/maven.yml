@@ -128,5 +128,5 @@ jobs:
           file: ./DockerFile
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/my-ccm:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/my-ccm:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/docker-ccm:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/docker-ccm:${{ github.sha }}
